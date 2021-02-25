@@ -1,19 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+      <b-navbar type="dark" variant="dark">
+        <b-navbar-brand to="/">NFTs</b-navbar-brand>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item to="/about">About</b-nav-item>
+          <b-nav-item to="/app">App</b-nav-item>
+        </b-navbar-nav>
+      </b-navbar>
+      <RouterView />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
 
-@Component({
-  components: {
-    HelloWorld,
-  },
-})
+@Component({})
 export default class App extends Vue {}
 </script>
 
@@ -24,6 +25,5 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
