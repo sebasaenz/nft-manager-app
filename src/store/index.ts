@@ -7,24 +7,25 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    address: '',
-    web3: {
-      isInjected: false,
-      web3Instance: null,
-      networkId: null,
-      coinbase: null,
-      balance: null,
-      error: null
-    }
+    address: localStorage.getItem('nfts_address') || '',
+    tokens: localStorage.getItem('nfts_tokens') || ''
   },
   mutations: {
-    setAddress(state: any, address: string): void {
-      state.address = address
+    SET_ADDRESS(state: any, address: string): void {
+      state.address = address;
+      localStorage.setItem('nfts_address', address);
+    },
+    SET_TOKENS(state: any, tokens: Array<any>): void {
+      state.tokens = tokens;
+      localStorage.setItem('nfts_tokens', JSON.stringify(tokens));
     }
   },
   actions: {
     setAddress({ commit }, address: string): void {
-      commit('setAddress', address);
+      commit('SET_ADDRESS', address);
+    },
+    setTokens({ commit }, tokens: Array<any>): void {
+      commit('SET_TOKENS', tokens);
     },
     getWeb3(): Promise<any> {
       return new Promise(function (resolve, reject) {

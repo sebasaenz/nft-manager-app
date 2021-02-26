@@ -1,8 +1,6 @@
 <template>
   <div class="nfts-app">
-    <NFTMainComponent 
-      :hasMetamask="$ethereum !== undefined"
-    />
+    <NFTMainComponent />
   </div>
 </template>
 
@@ -16,3 +14,6 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+</style>

@@ -7,14 +7,22 @@
           <b-nav-item to="/app">App</b-nav-item>
         </b-navbar-nav>
       </b-navbar>
-      <RouterView />
+      <div class="router-view">
+        <RouterView />
+      </div>
+      <Footer></Footer>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Footer from '@/components/Footer.vue'
 
-@Component({})
+@Component({
+  components: {
+    Footer
+  }
+})
 export default class App extends Vue {}
 </script>
 
@@ -25,5 +33,12 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  width: 100%;
+  height: 100%;
+}
+
+.router-view {
+  width: 100%;
+  min-height: calc(100vh - 112px);
 }
 </style>

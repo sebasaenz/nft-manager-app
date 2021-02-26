@@ -1,9 +1,9 @@
 <template>
   <div class="token-info">
-    <h1>Your tokens</h1>
+    <h1>My tokens</h1>
     <div>
-      {{ contractInfo }}
-      <TokenSlider :tokens="tokens" />
+      <p v-html="contractInfo"></p>
+      <TokenSlider :tokens="tokensArray" />
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import TokenSlider from '@/components/TokenSlider.vue'
-import { Action } from 'vuex-class'
+import { State, Action } from 'vuex-class'
 import contractAddress from '@/contracts/kudos/address'
 import contractABI from '@/contracts/kudos/ABI'
 import axios from 'axios'
@@ -24,31 +24,51 @@ import axios from 'axios'
 })
 export default class TokenInfo extends Vue {
   @Prop() private address!: string;
+  @State tokens: any;
   @Action getWeb3: any;
+  @Action setTokens: any;
 
-  tokens: Array<any> = [];
   contractInfo: string = ''
+  tokensArray: Array<any> = [];
 
   mounted () {
+    this.setContractInfo();
     this.getTokens();
   }
 
+  setContractInfo (): void {
+    this.contractInfo = `Tokens at <strong>${contractAddress.address}</strong>`
+  }
+  
   async getTokens (): Promise<void> {
-      try {
-        const { web3 } = await this.getWeb3();
-        const contract = new web3.eth.Contract(contractABI, contractAddress.address);
-        console.log(contract);
-        const data = await contract.methods.totalSupply().call({ from: this.address });
+      if (!this.tokens) {
+        try {
+          const { web3 } = await this.getWeb3();
+          const contract = new web3.eth.Contract(contractABI, contractAddress.address);
+          const data = await contract.methods.totalSupply().call({ from: this.address });
 
-        for (let i = 1; i < 31; i++) {
+          let tokenPromises = [];
+            
+          for (let i = 1; i < 31; i++) {
             const token = await contract.methods.tokenURI(i).call({ from: this.address });
-            const tokenMetadata = await axios.get(token);
-            this.tokens.push(tokenMetadata);
-        }
+            const tokenMetadata = axios.get(token);
+            tokenPromises.push(tokenMetadata);
+          }
 
-        console.log(this.tokens);
-      } catch (error) {
-        console.log(error);   
+          Promise.all(tokenPromises)
+            .then((res: any) => {
+              const tokens = res.map((el: any) => el.data);
+              this.tokensArray = tokens;
+              this.setTokens(tokens);
+            })
+            .catch((error: any) => {
+              console.log(error);
+            })
+        } catch (error) {
+          console.log(error);   
+        }
+      } else {
+        this.tokensArray = JSON.parse(this.tokens);
       }
   }
 }
