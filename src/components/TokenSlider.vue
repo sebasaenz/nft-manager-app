@@ -7,7 +7,7 @@
       <carousel 
         :navigationEnabled="true" 
         :perPage="1" 
-        :perPageCustom="[[768, 2], [940, 3]]"
+        :perPageCustom="[[768, slidesMedium], [940, slidesLarge]]"
       >
         <slide 
           v-for="(token, i) in tokens" 
@@ -42,6 +42,9 @@ import { Carousel, Slide } from 'vue-carousel';
 })
 export default class HelloWorld extends Vue {
   @Prop() private tokens!: Array<any>;
+
+  private slidesMedium: number = this.tokens.length < 2 ? this.tokens.length : 2;
+  private slidesLarge: number = this.tokens.length < 3 ? this.tokens.length : 3;
 }
 </script>
 
