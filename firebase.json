@@ -1,0 +1,11 @@
+{
+  "hosting": {
+		"site": "nft-manager",
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

@@ -3,18 +3,32 @@
       <div class="nfts-container">
           <b-container>
             <b-card no-body>
-              <b-tabs card @activate-tab="activateTab">
-                <b-tab title="My tokens" active>
-                  <b-card-text :style="{ overflow: 'scroll', 'max-height': 'calc(100vh - 280px)' }">
-                      <div v-if="address">
-                          <TokenInfo :address="address" />
-                      </div>
-                      <div v-else>
-                          Please connect <a :href="metamaskLink" target="_blank">Metamask <b-icon icon="box-arrow-up-right"></b-icon></a> to be able to see more information.
-                      </div>
+              <b-tabs 
+                card 
+                @activate-tab="activateTab"
+              >
+                <b-tab 
+                  title="My tokens" 
+                  active
+                >
+                  <b-card-text 
+                    :style="{ 
+                      'overflow': 'scroll', 
+                      'max-height': 'calc(100vh - 280px)'
+                    }"
+                  >
+                    <div v-if="address">
+                      <TokenInfo :address="address" />
+                    </div>
+                    <div v-else>
+                      Please connect <a :href="metamaskLink" target="_blank">Metamask <b-icon icon="box-arrow-up-right"></b-icon></a>
+                       to be able to see more information.
+                    </div>
                   </b-card-text>
                 </b-tab>
-                <b-tab title="Address Info" lazy>
+                <b-tab 
+                  title="Address Info" 
+                  lazy>
                   <div v-if="address">
                     Address: <strong>{{ address }}</strong>
                   </div>
@@ -42,9 +56,9 @@ import TokenInfo from '@/components/TokenInfo.vue';
   }
 })
 export default class NFTMainComponent extends Vue {
-  @State address: any;
-  @Action getWeb3: any;
-  @Action setAddress: any;
+  @State(state => state.address) address: any;
+  @Action('getWeb3') getWeb3!: () => Promise<any>;
+  @Action('setAddress') setAddress!: (address: string) => void;
 
   metamaskLink: string = 'https://metamask.io/'
 

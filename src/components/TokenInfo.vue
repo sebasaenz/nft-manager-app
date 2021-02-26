@@ -24,9 +24,9 @@ import axios from 'axios'
 })
 export default class TokenInfo extends Vue {
   @Prop() private address!: string;
-  @State tokens: any;
-  @Action getWeb3: any;
-  @Action setTokens: any;
+  @State(state => state.tokens) tokens!: string;
+  @Action('getWeb3') getWeb3!: () => Promise<any>;
+  @Action('setTokens') setTokens!: (tokens: Array<any>) => void;
 
   contractInfo: string = ''
   tokensArray: Array<any> = [];

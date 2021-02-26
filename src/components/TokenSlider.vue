@@ -1,15 +1,30 @@
 <template>
   <div class="token-slider">
-    <div class="slider-wrapper" v-if="tokens.length">
-      <carousel :navigationEnabled="true" :perPage="1" :perPageCustom="[[768, 2], [940, 3]]">
-        <slide v-for="(token, i) in tokens" :key="i">
-          <h3 class="mb-3">{{ token.name }}</h3>
+    <div 
+      class="slider-wrapper" 
+      v-if="tokens.length"
+    >
+      <carousel 
+        :navigationEnabled="true" 
+        :perPage="1" 
+        :perPageCustom="[[768, 2], [940, 3]]"
+      >
+        <slide 
+          v-for="(token, i) in tokens" 
+          :key="i"
+        >
+          <h3 class="mb-3">
+            {{ token.name }}
+          </h3>
           <img :src="token.image" />
         </slide>
       </carousel>
     </div>
     <div v-if="!tokens.length">
-       <b-spinner variant="primary" label="Spinning"></b-spinner>
+      <b-spinner 
+         variant="primary" 
+         label="Spinning"
+      ></b-spinner>
     </div>
   </div>
 </template>
