@@ -2,12 +2,12 @@
   <div class="token-slider">
     <div 
       class="slider-wrapper" 
-      v-if="tokens.length"
+      v-if="tokens"
     >
       <carousel 
         :navigationEnabled="true" 
         :perPage="1" 
-        :perPageCustom="[[768, slidesMedium], [940, slidesLarge]]"
+        :perPageCustom="[[768, 2], [940, 3]]"
       >
         <slide 
           v-for="(token, i) in tokens" 
@@ -20,7 +20,7 @@
         </slide>
       </carousel>
     </div>
-    <div v-if="!tokens.length">
+    <div v-if="!tokens">
       <b-spinner 
          variant="primary" 
          label="Spinning"
@@ -42,9 +42,6 @@ import { Carousel, Slide } from 'vue-carousel';
 })
 export default class HelloWorld extends Vue {
   @Prop() private tokens!: Array<any>;
-
-  private slidesMedium: number = this.tokens.length < 2 ? this.tokens.length : 2;
-  private slidesLarge: number = this.tokens.length < 3 ? this.tokens.length : 3;
 }
 </script>
 

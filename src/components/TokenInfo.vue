@@ -12,8 +12,8 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import TokenSlider from '@/components/TokenSlider.vue'
 import { State, Action } from 'vuex-class'
-import contractAddress from '@/contracts/kudos/address'
-import contractABI from '@/contracts/kudos/ABI'
+import contractAddress from '@/contracts/goerli/address'
+import contractABI from '@/contracts/goerli/ABI'
 import axios from 'axios'
 
 @Component({
@@ -29,7 +29,8 @@ export default class TokenInfo extends Vue {
   @Action('setTokens') setTokens!: (tokens: Array<any>) => void;
 
   contractInfo: string = ''
-  tokensArray: Array<any> = [];
+  tokensArray: Array<any> | null = null;
+  tokenIds: Array<number> | null = null; 
 
   mounted () {
     this.setContractInfo();
@@ -41,29 +42,39 @@ export default class TokenInfo extends Vue {
   }
   
   async getTokens (): Promise<void> {
+      console.log(this.tokens);
       if (!this.tokens) {
         try {
           const { web3 } = await this.getWeb3();
           const contract = new web3.eth.Contract(contractABI, contractAddress.address);
-          const data = await contract.methods.totalSupply().call({ from: this.address });
 
-          let tokenPromises = [];
-            
-          for (let i = 1; i < 31; i++) {
-            const token = await contract.methods.tokenURI(i).call({ from: this.address });
-            const tokenMetadata = axios.get(token);
-            tokenPromises.push(tokenMetadata);
-          }
+          contract.getPastEvents('TransferSingle', { fromBlock: 0x0, toBlock: 'latest' }, async (error: any, result: Array<any>) => {
+            if (!error) {
+              const ownTransactions = result.filter((el: any) => el.returnValues.to.toLowerCase() === this.address.toLowerCase());
+              this.tokenIds = ownTransactions.map((el: any) => el.returnValues.id);
 
-          Promise.all(tokenPromises)
-            .then((res: any) => {
-              const tokens = res.map((el: any) => el.data);
-              this.tokensArray = tokens;
-              this.setTokens(tokens);
-            })
-            .catch((error: any) => {
-              console.log(error);
-            })
+              let tokenPromises = [];
+
+              for (let i = 0; i < this.tokenIds.length; i++) {
+                const tokenURI = await contract.methods.uri(i).call({ from: this.address });
+                const tokenMetadata = await axios.get(tokenURI);
+                tokenPromises.push(tokenMetadata.data);
+              }
+
+              Promise.all(tokenPromises)
+                .then((res: any) => {
+                  const tokens = res.map((el: any) => el.data);
+                  this.tokensArray = tokens;
+                  this.setTokens(tokens);
+                })
+                .catch((error: any) => {
+                  console.log(error);
+                })
+
+            } else {
+              console.log(error)
+            }
+          })
         } catch (error) {
           console.log(error);   
         }
