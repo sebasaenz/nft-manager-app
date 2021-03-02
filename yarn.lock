@@ -4728,6 +4728,11 @@
   "resolved" "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz"
   "version" "8.2.0"
 
+"dropzone@^5.5.1":
+  "integrity" "sha512-z38j+PZsH38rFGOK2rQ877t6c0cPos053fPp3RKaDvCDjAw4KflQQGn7BhCWeFq9Zl1hinB8khPrQdJ6cIBryQ=="
+  "resolved" "https://registry.npmjs.org/dropzone/-/dropzone-5.7.6.tgz"
+  "version" "5.7.6"
+
 "duplexer@^0.1.1":
   "integrity" "sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg=="
   "resolved" "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.2.tgz"
@@ -11827,6 +11832,11 @@
   "resolved" "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.2.6.tgz"
   "version" "7.2.6"
 
+"vue-country-flag@^2.0.3":
+  "integrity" "sha512-QZM3hNNhnGU+G1qnpq1BiICE4Zh91UA++/UpM0go8XbxkVxTiPy4asWY07vL/3PtW8M69YqWVbhwG13rzvNwkA=="
+  "resolved" "https://registry.npmjs.org/vue-country-flag/-/vue-country-flag-2.0.3.tgz"
+  "version" "2.0.3"
+
 "vue-functional-data-merge@^3.1.0":
   "integrity" "sha512-leT4kdJVQyeZNY1kmnS1xiUlQ9z1B/kdBFCILIjYYQDqZgLqCLa0UhjSSeRX6c3mUe6U5qYeM8LrEqkHJ1B4LA=="
   "resolved" "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-3.1.0.tgz"
@@ -11836,6 +11846,11 @@
   "integrity" "sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog=="
   "resolved" "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz"
   "version" "2.3.4"
+
+"vue-i18n@^8.23.0":
+  "integrity" "sha512-mXgniaumwca8tKdp55fmvqIcW658vQQXq0zEyRHp8sgZ6t+Md+Whhu6CCPg9/erVNlvpKzsGsucGjt2N8GrFCA=="
+  "resolved" "https://registry.npmjs.org/vue-i18n/-/vue-i18n-8.23.0.tgz"
+  "version" "8.23.0"
 
 "vue-jest@^3.0.5":
   "integrity" "sha512-PIOxFM+wsBMry26ZpfBvUQ/DGH2hvp5khDQ1n51g3bN0TwFwTy4J85XVfxTRMukqHji/GnAoGUnlZ5Ao73K62w=="
@@ -11909,6 +11924,13 @@
   "integrity" "sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg=="
   "resolved" "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz"
   "version" "2.6.12"
+
+"vue2-dropzone@^3.6.0":
+  "integrity" "sha512-YXC1nCWIZvfa98e/i6h+EshZCkFSxFEh0Sxr9ODfThAPPDVhAzLLlz/4XIx0NGO1QeSy6htwSstte47R7vVhLQ=="
+  "resolved" "https://registry.npmjs.org/vue2-dropzone/-/vue2-dropzone-3.6.0.tgz"
+  "version" "3.6.0"
+  dependencies:
+    "dropzone" "^5.5.1"
 
 "vuex-class@^0.3.2":
   "integrity" "sha512-m0w7/FMsNcwJgunJeM+wcNaHzK2KX1K1rw2WUQf7Q16ndXHo7pflRyOV/E8795JO/7fstyjH3EgqBI4h4n4qXQ=="

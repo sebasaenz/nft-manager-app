@@ -2,25 +2,26 @@
   <div class="token-slider">
     <div 
       class="slider-wrapper" 
-      v-if="tokens"
+      v-if="tokens.length"
     >
       <carousel 
         :navigationEnabled="true" 
         :perPage="1" 
         :perPageCustom="[[768, 2], [940, 3]]"
+        class="mb-5"
       >
         <slide 
           v-for="(token, i) in tokens" 
           :key="i"
         >
-          <h3 class="mb-3">
-            {{ token.name }}
+          <h3 class="token-title mb-3">
+            {{ token.title }}
           </h3>
-          <img :src="token.image" />
+          <img :src="token.url" />
         </slide>
       </carousel>
     </div>
-    <div v-if="!tokens">
+    <div v-if="!tokens.length">
       <b-spinner 
          variant="primary" 
          label="Spinning"
@@ -40,7 +41,7 @@ import { Carousel, Slide } from 'vue-carousel';
     Slide
   }
 })
-export default class HelloWorld extends Vue {
+export default class TokenSlider extends Vue {
   @Prop() private tokens!: Array<any>;
 }
 </script>
@@ -50,10 +51,12 @@ export default class HelloWorld extends Vue {
   .slider-wrapper {padding: 0 30px; max-width: 900px; margin: 2em auto 0; display: flex; flex-wrap: wrap;}
   .slider-wrapper .slide-inner-container {width: 32%; margin-bottom: 1em; padding: 1em;}
   .slider-wrapper > div:nth-child(3n + 1) .slide-inner-container {margin-right: 2%;}
-  .slider-wrapper > div img {width: 100%; max-width: 250px;}
+  .slider-wrapper > div img {width: 100%; width: auto; max-height: 250px;}
   /deep/ .VueCarousel {max-width: 100%;}
   /deep/ .VueCarousel-pagination {display: none !important;}
   /deep/ .VueCarousel-slide {padding: 0 2em;}
+
+  .token-title {min-height: 2.5em;}
 
   @media all and (max-width: 768px) {
     .slider-wrapper h3 {font-size: 1rem;}  

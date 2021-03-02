@@ -16,7 +16,7 @@ export default class HelloWorld extends Vue {
   @Prop() private msg?: string;
 
   get fullMessage(): string {
-    return `${new Date().getFullYear()} © All Rights Reserved${ this.msg ? ' | ' + this.msg : ''}`;
+    return `${new Date().getFullYear()} © ${this.$t('footer.copy')}${ this.msg ? ' | ' + this.msg : ''}`;
   }
 }
 </script>

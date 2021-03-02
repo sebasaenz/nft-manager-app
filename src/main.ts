@@ -24,6 +24,9 @@ import "firebase/auth";
 import "firebase/storage";
 import "firebase/analytics";
 
+import VueI18n from 'vue-i18n'
+import messages from '@/locales'
+
 const firebaseConfig = {
   apiKey: "AIzaSyB8KLEe-Po4x_K5Sow0nMtcyx55qBc941k",
   authDomain: "nfts-manager.firebaseapp.com",
@@ -41,11 +44,19 @@ Vue.config.productionTip = false
 Vue.prototype.$ethereum = window.ethereum;
 Vue.prototype.$web3 = window.web3;
 
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.use(VueCarousel);
+Vue.use(VueI18n);
+
+const i18n = new VueI18n({
+  locale: 'es',
+  fallbackLocale: 'en',
+  messages
+})
 
 new Vue({
+  i18n,
   router,
   store,
   render: h => h(App)

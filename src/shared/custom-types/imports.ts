@@ -36,3 +36,16 @@ export interface Transaction {
   transactionHash: string,
   transactionIndex: number
 }
+
+export enum TokenConstants {
+  DIGITAL_ART = 1,
+  MUSIC = 2,
+  CERTIFICATIONS = 3
+}
+
+export enum Tabs {
+  CREATE_TOKENS_TAB = 1,
+  MY_TOKENS_TAB = 2,
+  ADDRESS_INFO_TAB = 3,
+}
+

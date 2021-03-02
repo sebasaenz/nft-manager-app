@@ -1,7 +1,7 @@
 <template>
   <div class="about">
-    <h1>FAQs</h1>
-    <FAQ :qas="qas" />
+    <h1 class="mb-5">{{  $t('about.title') }}</h1>
+    <FAQ :qas="$t('about.qas')" />
   </div>
 </template>
 

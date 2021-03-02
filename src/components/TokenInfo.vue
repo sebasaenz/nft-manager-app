@@ -1,6 +1,6 @@
 <template>
   <div class="token-info">
-    <h1>My tokens</h1>
+    <h1 class="mt-3">{{ $t('myTokensTab.title') }}</h1>
     <div>
       <p v-html="contractInfo"></p>
       <TokenSlider :tokens="tokensArray" />
@@ -9,6 +9,7 @@
 </template>
 
 <script lang="ts">
+import firebase from 'firebase/app'
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import TokenSlider from '@/components/TokenSlider.vue'
 import { State, Action } from 'vuex-class'
@@ -29,7 +30,7 @@ export default class TokenInfo extends Vue {
   @Action('setTokens') setTokens!: (tokens: Array<any>) => void;
 
   contractInfo: string = ''
-  tokensArray: Array<any> | null = null;
+  tokensArray: Array<any> = [];
   tokenIds: Array<number> | null = null; 
 
   mounted () {
@@ -38,11 +39,10 @@ export default class TokenInfo extends Vue {
   }
 
   setContractInfo (): void {
-    this.contractInfo = `Tokens at <strong>${contractAddress.address}</strong>`
+    this.contractInfo = `${this.$t('myTokensTab.tokensAt')} <strong>${contractAddress.address}</strong>`
   }
   
   async getTokens (): Promise<void> {
-      console.log(this.tokens);
       if (!this.tokens) {
         try {
           const { web3 } = await this.getWeb3();
@@ -53,24 +53,31 @@ export default class TokenInfo extends Vue {
               const ownTransactions = result.filter((el: any) => el.returnValues.to.toLowerCase() === this.address.toLowerCase());
               this.tokenIds = ownTransactions.map((el: any) => el.returnValues.id);
 
-              let tokenPromises = [];
-
               for (let i = 0; i < this.tokenIds.length; i++) {
-                const tokenURI = await contract.methods.uri(i).call({ from: this.address });
-                const tokenMetadata = await axios.get(tokenURI);
-                tokenPromises.push(tokenMetadata.data);
+                let item = this.tokenIds[i];
+                const tokenURI = await contract.methods.uri(item).call({ from: this.address });
+                firebase.auth().signInAnonymously()
+                  .then(async () => {
+                    try {
+                      var storageRef = firebase.storage().ref();
+                      let metadataRef = storageRef.child(`token-metadata/${item}.json`);
+                      let tokenMetadataURL = await metadataRef.getDownloadURL();
+                      // TODO: Change it when the deployed contract has the real URI so it pulls directly from the contract
+                      const tokenMetadata = await axios.get(tokenMetadataURL);
+
+                      if (typeof tokenMetadata.data !== 'string') {
+                        this.tokensArray.push(tokenMetadata.data);
+                        this.tokens = JSON.stringify(this.tokensArray);
+                      }
+                    } catch (error) {
+                      console.log(error);
+                    }
+                    
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  })
               }
-
-              Promise.all(tokenPromises)
-                .then((res: any) => {
-                  const tokens = res.map((el: any) => el.data);
-                  this.tokensArray = tokens;
-                  this.setTokens(tokens);
-                })
-                .catch((error: any) => {
-                  console.log(error);
-                })
-
             } else {
               console.log(error)
             }

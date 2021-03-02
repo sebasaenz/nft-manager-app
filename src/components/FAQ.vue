@@ -19,17 +19,16 @@
             'border-bottom': '0 !important'
           }"
         >
-          <b-button 
-            block 
+          <button
             v-b-toggle="'accordion-' + i" 
             :style="{ 
-              'background-color': '#56b36e',
-              'font-size': '18px',
+              'font-size': '16px',
               'font-weight': '500'
             }"
-          >
-             {{ qa.q }}
-          </b-button>
+            class="btn-cool">
+            {{ qa.q }}
+            <span>+</span>
+          </button>
         </b-card-header>
     
         <b-collapse :id="'accordion-' + i" accordion="my-accordion" role="tabpanel">
@@ -38,6 +37,7 @@
               <p 
                 v-html="qa.a" 
                 :style="{ 
+                  'font-size': '.9em',
                   'text-align': 'left', 
                   'padding': '0 30px',
                   'line-height': '1.75',
@@ -61,7 +61,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class FAQ extends Vue {
   @Prop() private qas!: Array<any>;
 
-  text: string = 'Lorem Ipsum'
+  text: string = 'Lorem Ipsum';
 }
 </script>
 
