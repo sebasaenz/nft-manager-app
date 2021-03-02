@@ -1,19 +1,16 @@
 <template>
   <div class="token-slider">
-    <div 
-      class="slider-wrapper" 
-      v-if="tokens.length"
-    >
+    <div
+      class="slider-wrapper"
+      v-if="tokens.length">
       <carousel 
-        :navigationEnabled="true" 
-        :perPage="1" 
+        :navigationEnabled="true"
+        :perPage="1"
         :perPageCustom="[[768, 2], [940, 3]]"
-        class="mb-5"
-      >
+        class="mb-5">
         <slide 
-          v-for="(token, i) in tokens" 
-          :key="i"
-        >
+          v-for="(token, i) in tokens"
+          :key="i">
           <h3 class="token-title mb-3">
             {{ token.title }}
           </h3>
@@ -23,7 +20,7 @@
     </div>
     <div v-if="!tokens.length">
       <b-spinner 
-         variant="primary" 
+         variant="primary"
          label="Spinning"
       ></b-spinner>
     </div>

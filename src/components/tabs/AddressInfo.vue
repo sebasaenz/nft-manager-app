@@ -6,7 +6,7 @@
         <div v-if="address">
           {{ $t('addressInfoTab.address') }}: <strong>{{ address }}</strong>
         </div>
-        <div v-else>
+        <div class="metamask-copy" v-else>
           {{ $t('global.connectMetamask1') }} <a :href="metamaskLink" target="_blank">Metamask</a> {{ $t('global.connectMetamask2') }}
       </div>
     </b-tab>
@@ -23,6 +23,7 @@
   export default class AddressInfo extends Vue {
     @State(state => state.address) address: any;
     
+    metamaskLink: string = 'https://metamask.io/'
   }
 </script>
 

@@ -29,6 +29,8 @@
   })
   export default class MyTokens extends Vue {
     @State(state => state.address) address: any;
+
+    metamaskLink: string = 'https://metamask.io/'
     
   }
 </script>

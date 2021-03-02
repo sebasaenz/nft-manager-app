@@ -113,8 +113,8 @@
     MUSIC: number = MUSIC;
     CERTIFICATIONS: number = CERTIFICATIONS;
     
-    creatingToken: boolean = false;
     metamaskLink: string = 'https://metamask.io/'
+    creatingToken: boolean = false;
     selectedNetwork: string | null = null;
     selectedTokenType: number | null = null;
     createdTokens: Array<any> = [];

@@ -2,7 +2,7 @@
   <div class="token-info">
     <h1 class="mt-3">{{ $t('myTokensTab.title') }}</h1>
     <div>
-      <p v-html="contractInfo"></p>
+      <p class="contract-info" v-html="contractInfo"></p>
       <TokenSlider :tokens="tokensArray" />
     </div>
   </div>
@@ -53,6 +53,8 @@ export default class TokenInfo extends Vue {
               const ownTransactions = result.filter((el: any) => el.returnValues.to.toLowerCase() === this.address.toLowerCase());
               this.tokenIds = ownTransactions.map((el: any) => el.returnValues.id);
 
+              console.log(contract);
+
               for (let i = 0; i < this.tokenIds.length; i++) {
                 let item = this.tokenIds[i];
                 const tokenURI = await contract.methods.uri(item).call({ from: this.address });
@@ -67,7 +69,7 @@ export default class TokenInfo extends Vue {
 
                       if (typeof tokenMetadata.data !== 'string') {
                         this.tokensArray.push(tokenMetadata.data);
-                        this.tokens = JSON.stringify(this.tokensArray);
+                        this.setTokens(this.tokensArray);
                       }
                     } catch (error) {
                       console.log(error);
