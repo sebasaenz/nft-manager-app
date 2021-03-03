@@ -105,6 +105,7 @@
     }
   })
   export default class CreateToken extends Vue {
+    @State(state => state.address) address: any;
     @Action('getWeb3') getWeb3!: () => Promise<any>;
     @Action('setAddress') setAddress!: (address: string) => void;
     @Action('getTokens') getTokens!: (tokenInfo: {ABI: any, address: string}) => Promise<any>;
@@ -123,7 +124,6 @@
         dropzone: any
     };
     loadingFile: boolean = false;
-    address: string = '';
 
     dropzoneOptions: any = {
       url: "https://httpbin.org/post",
@@ -149,10 +149,6 @@
       { value: MUSIC, text: this.$t('createTokenTab.tokenTypeOptions[1]') },
       { value: CERTIFICATIONS, text: this.$t('createTokenTab.tokenTypeOptions[2]') }
     ];
-
-    created () {
-
-    }
 
     async createToken (): Promise<void> {
       if (typeof this.selectedNetwork === 'string' && typeof this.selectedTokenType === 'number') {
