@@ -1,8 +1,7 @@
 <template>
   <div class="tab-create-token">
     <b-tab 
-      :title="$t('createTokenTab.tabName')"
-      active>
+      :title="$t('createTokenTab.tabName')">
       <div v-if="address" :style="{ 'margin': '0 auto', 'max-width': '768px' }">
         <h1 class="mt-3">{{ $t('createTokenTab.title') }}</h1>
 

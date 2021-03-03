@@ -3,7 +3,8 @@
       <div class="nfts-container">
           <b-container>
             <b-card no-body>
-              <b-tabs 
+              <b-tabs
+                v-model="activeTab"
                 card 
                 @activate-tab="activateTab"
               >
@@ -59,6 +60,7 @@
 
     async created () {
       this.checkWalletConnection();
+      this.checkRouteHash()
     }
 
     async connectWallet (): Promise<void> {
@@ -91,10 +93,12 @@
 
     checkRouteHash () {
       const currentHash = this.$router.currentRoute.hash;
-      if (currentHash == 'my-tokens') {
-        this.activeTab = Tabs.MY_TOKENS_TAB;
-      } else if (currentHash == 'address-info') {
-        this.activeTab = Tabs.ADDRESS_INFO_TAB;
+      if (currentHash == '#create-token') {
+        this.activeTab = Tabs.CREATE_TOKENS_TAB - 1;
+      } else if (currentHash == '#my-tokens') {
+        this.activeTab = Tabs.MY_TOKENS_TAB - 1;
+      } else if (currentHash == '#address-info') {
+        this.activeTab = Tabs.ADDRESS_INFO_TAB - 1;
       }
     }
   }
