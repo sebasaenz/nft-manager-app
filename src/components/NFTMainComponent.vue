@@ -66,7 +66,7 @@
         const { ethereum } = await this.getWeb3();
         const accountData = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accountData[0];
-        this.setAddress(account);    
+        this.setAddress(account); 
       } catch (error) {
         console.log(error);
       }
@@ -77,6 +77,12 @@
         const { ethereum } = await this.getWeb3();
         if (ethereum.isConnected()) {
           this.isWalletConnected = true;
+
+          if (!this.address) {
+            const accountData = await ethereum.request({ method: 'eth_requestAccounts' });
+            const account = accountData[0];
+            this.setAddress(account);
+          }
         }
       } catch (error) {
         console.log(error);

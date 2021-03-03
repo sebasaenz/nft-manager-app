@@ -15,7 +15,7 @@
             v-for="(locale, i) in locales"
             :key="i"
             @click="translate(locale.name.substring(0, 2).toLowerCase())">
-              <CountryFlag :country="locale.code" size="sm" />
+              <CountryFlag :country="locale.code" />
           </b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
