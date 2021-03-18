@@ -190,7 +190,7 @@
               await this.uploadMetadata(metadataObject, tokenId);
               
               try {
-                const mint = await contract.methods.mint(account, tokenId, 1, []).send({ from: account });
+                const mint = await contract.methods.mint(account, tokenId, 1, []).send({ from: account, value: BigInt(Math.pow(10,15)).toString() });
                 this.createdTokens.push(mint);
 
                 this.$bvModal.msgBoxOk('The token was created successfully!', {

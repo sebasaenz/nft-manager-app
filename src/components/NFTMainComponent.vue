@@ -48,7 +48,7 @@
     
     isWalletConnected: boolean = false;
     tabHash: string = 'create-tokens'
-    activeTab: Tabs = Tabs.CREATE_TOKENS_TAB;
+    activeTab: Tabs = Tabs.CREATE_TOKENS_TAB - 1;
 
     activateTab(newIndex: number, prevIndex: number, bvEvent: Event): void {
       const NUMBER_OF_TABS = 3;
